@@ -17,6 +17,7 @@ import {
   View,
   ViewStyle,
   ViewProps,
+  NativeEventSubscription,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
@@ -206,6 +207,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   didUpdateDimensionsEmitter: OrNull<EmitterSubscription> = null;
 
   interactionHandle: OrNull<number> = null;
+  backHandlerEventSubscription: OrNull<NativeEventSubscription> = null;
 
   constructor(props: ModalProps) {
     super(props);
@@ -252,14 +254,14 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     if (this.state.isVisible) {
       this.open();
     }
-    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress);
+    this.backHandlerEventSubscription = BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress);
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener(
-      'hardwareBackPress',
-      this.onBackButtonPress,
-    );
+    if (this.backHandlerEventSubscription) {
+      this.backHandlerEventSubscription.remove();
+    }
+
     if (this.didUpdateDimensionsEmitter) {
       this.didUpdateDimensionsEmitter.remove();
     }
