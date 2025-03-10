@@ -1,7 +1,7 @@
 import {ReactNativeModal} from './modal';
 
-export {ModalProps, ReactNativeModal, OnSwipeCompleteParams} from './modal';
-export {
+export type {ModalProps, ReactNativeModal, OnSwipeCompleteParams} from './modal';
+export type {
   AnimationEvent,
   Animations,
   SupportedAnimation,
