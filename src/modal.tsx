@@ -732,7 +732,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     const backdropWrapper = (
       <animatable.View
-        ref={ref => (this.backdropRef = ref)}
+        ref={ref => void (this.backdropRef = ref)}
         useNativeDriver={
           useNativeDriverForBackdrop !== undefined
             ? useNativeDriverForBackdrop
@@ -814,7 +814,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     const containerView = (
       <animatable.View
         {...panHandlers}
-        ref={ref => (this.contentRef = ref)}
+        ref={ref => void (this.contentRef = ref)}
         style={[panPosition, computedStyle]}
         pointerEvents="box-none"
         useNativeDriver={useNativeDriver}
